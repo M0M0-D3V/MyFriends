@@ -1,0 +1,101 @@
+@{
+
+    String p = Context.Request.Path;
+
+    String[] paths = p.Split("/");
+
+    int id = 0;
+
+    foreach (string path in paths)
+
+    {
+
+        var isNumeric = int.TryParse(path, out int n);
+
+        if (n != 0)
+
+        {
+
+            id = n;
+
+        }
+
+    }
+}
+
+<div class="fixed-top bg-dark">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <a class="navbar-brand" href="">Connections</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @if (id == ViewBag.sessionId)
+
+                        {
+                            <a class="nav-link" data-path="^\/user\/\d+$" href="/user/@ViewBag.sessionId">
+                                <i class="far fa-user-circle"></i>
+                                My Profile
+                            </a>
+
+                        }
+
+                        else if (id != 0)
+
+                        {
+                            <a class="nav-link" href="/user/@ViewBag.sessionId">
+                                <i class="far fa-user-circle"></i>
+                                My Profile
+                            </a>
+
+                        }
+
+                        else
+
+                        {
+                            <a class="nav-link" data-path="^\/user\/\d+$" href="/user/@ViewBag.sessionId">
+                                <i class="far fa-user-circle"></i>
+                                My Profile
+                            </a>
+
+                        }
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-path="^\/connections\/new$" href="/connections/new">
+                            <i class="fas fa-user-friends"></i>
+                            New Connections
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-path="^\/user\/\d+\/edit$" href="/user/@ViewBag.sessionId/edit">
+                            <i class="fas fa-user-cog"></i>
+                            Edit Profile
+                        </a>
+                    </li>
+                </ul>
+                <a class="btn btn-info" href="/logout">Sign Out</a>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+<!-- this div exists to take up space -->
+<div style="display:block; height: 100px;"></div>
+
+<script>
+    // set active link using data attribute and regex
+    // what was I thinking?
+    const pathname = window.location.pathname;
+    let links = document.querySelectorAll("[data-path]");
+    for (let link of links) {
+        let pattern = link.getAttribute("data-path");
+        if (new RegExp(pattern).test(pathname)) {
+            link.classList.add("active");
+        }
+    }
+</script>

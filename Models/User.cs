@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
@@ -37,5 +38,13 @@ namespace MyFriends.Models
         [Compare("Password", ErrorMessage = "Confirm Password must match Password!")]
         [DataType(DataType.Password)]
         public string Confirm { get; set; }
+
+        [InverseProperty("UserFollowed")]
+        public List<Connection> Followers { get; set; }
+
+        [InverseProperty("Follower")]
+        public List<Connection> UsersFollowed { get; set; }
+
+        public List<Post> Posts { get; set; }
     }
 }

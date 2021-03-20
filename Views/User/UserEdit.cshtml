@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<partial name="~/Views/Shared/_Navigation.cshtml" />
+
+<partial name="_EditProfile.cshtml" />
+
+<div class="row">
+    <div class="col-lg-6 mb-5">
+        <partial name="_ChangePassword.cshtml" />
+    </div>
+    <div class="col-lg-6 mb-5">
+        <partial name="_DeleteAccount.cshtml" />
+    </div>
+</div>
+
